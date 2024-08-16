@@ -25,7 +25,7 @@ const CoverImageUploader: React.FC<CoverImageUploaderProps> = ({ coverImageUrl, 
         setCoverImageUrl(null);
     };
 
-    const imageClass = mode === "edit" ? "max-w-[200px] h-auto" : "max-w-full h-auto"; // Reduced size for edit mode
+    const imageClass = mode === "edit" ? "max-w-[200px] h-auto" : "max-w-full h-auto"; 
 
     return (
         <div className="mb-6">

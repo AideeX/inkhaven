@@ -59,7 +59,7 @@ const SignInForm = () => {
   
 
     return (
-        <div className="flex flex-col md:flex-row justify-center items-center min-h-screen w-2/3 mx-auto bg-[url('/purple-bg.png')] bg-cover bg-center rounded-lg shadow-2xl">
+        <div className="flex flex-col md:flex-row justify-center items-center min-h-screen w-2/3 mx-auto bg-[url('/purple-bg.PNG')] bg-cover bg-center rounded-lg shadow-2xl">
                 <Link href='/' className="fixed top-4 left-56 md:block hidden"><Image src="/darkmode.svg" alt="InkHaven" width={150} height={50} /></Link>
             
             <div className="hidden md:flex flex-col w-1/2 justify-center items-center text-center p-8 ">

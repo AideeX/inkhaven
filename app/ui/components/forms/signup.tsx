@@ -124,14 +124,14 @@ const SignUpForm = () => {
    
 
     return (
-        <div className="relative flex flex-col md:flex-row justify-center items-center min-h-screen w-2/3 mx-auto bg-[url('/purple-bg2.png')] bg-cover bg-center rounded-lg shadow-2xl">
+        <div className="relative flex flex-col md:flex-row justify-center items-center min-h-screen w-2/3 mx-auto bg-[url('/purple-bg2.PNG')] bg-cover bg-center rounded-lg shadow-2xl">
   
-  {/* Logo Positioned in the Top Right */}
+
   <Link href='/' className="absolute top-4 right-4">
     <Image src="/darkmode.svg" alt="InkHaven" width={150} height={50} />
   </Link>
   
-  {/* Form Section */}
+
   <div className="flex flex-col w-full md:w-1/2 p-8 bg-light-secondaryBg rounded-lg md:rounded-l-lg shadow-lg">
     <div className="w-full h-full">
       <h1 className={`text-3xl font-bold text-center mb-6 ${literata.className}`}>

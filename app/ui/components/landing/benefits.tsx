@@ -9,7 +9,7 @@ export default function Features() {
           Features
         </h2>
         <div className="flex flex-col gap-8">
-          {/* Feature 1 */}
+        
           <div className="flex flex-col md:flex-row items-center bg-light-secondaryBg p-6 rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 hover:shadow-2xl">
             <div className="md:w-1/2 transition-transform duration-300 hover:scale-110 mb-4 md:mb-0">
               <Image src='/content-creation-benefits.svg' alt="Content creation illustration" width={200} height={200} className="mx-auto md:mx-0" />
@@ -22,7 +22,7 @@ export default function Features() {
             </div>
           </div>
           
-          {/* Feature 2 */}
+         
           <div className="flex flex-col md:flex-row-reverse items-center bg-light-secondaryBg p-6 rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 hover:shadow-2xl">
             <div className="md:w-1/2 transition-transform duration-300 hover:scale-110 mb-4 md:mb-0 md:ml-8"> 
               <Image src='/content-discovery-benefits.svg' alt="Content discovery illustration" width={200} height={200} className="mx-auto md:mx-0" />
@@ -35,7 +35,7 @@ export default function Features() {
             </div>
           </div>
           
-          {/* Feature 3 */}
+         
           <div className="flex flex-col md:flex-row items-center bg-light-secondaryBg p-6 rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 hover:shadow-2xl">
             <div className="md:w-1/2 transition-transform duration-300 hover:scale-110 mb-4 md:mb-0">
               <Image src='/community-benefits.svg' alt="Community illustration" width={200} height={200} className="mx-auto md:mx-0" />
@@ -48,7 +48,7 @@ export default function Features() {
             </div>
           </div>
           
-          {/* Feature 4 */}
+      
           <div className="flex flex-col md:flex-row-reverse items-center bg-light-secondaryBg p-6 rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 hover:shadow-2xl">
             <div className="md:w-1/2 transition-transform duration-300 hover:scale-110 mb-4 md:mb-0 md:ml-8"> 
               <Image src='/dashboard-benefits.svg' alt="Dashboard illustration" width={200} height={200} className="mx-auto md:mx-0" />

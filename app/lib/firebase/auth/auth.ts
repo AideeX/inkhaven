@@ -7,7 +7,7 @@ import {
     TwitterAuthProvider, 
     UserCredential, 
     sendPasswordResetEmail as firebaseSendPasswordResetEmail, 
-    fetchSignInMethodsForEmail as firebaseFetchSignInMethodsForEmail, // Import fetchSignInMethodsForEmail
+    fetchSignInMethodsForEmail as firebaseFetchSignInMethodsForEmail, 
     updateProfile
 } from 'firebase/auth';
 import { auth, db } from '@/app/lib/firebase/config';

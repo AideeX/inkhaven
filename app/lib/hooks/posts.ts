@@ -37,7 +37,7 @@ const fetchPosts = async (authorId?: string): Promise<Post[]> => {
         const data = doc.data();
         return {
             id: doc.id,
-            title: data.postTitle, // Map Firestore field 'postTitle' to 'title'
+            title: data.postTitle, 
             content: data.content,
             coverImageUrl: data.coverImageUrl,
             authorId: data.authorId,

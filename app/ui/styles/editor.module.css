@@ -1,0 +1,9 @@
+
+.toast-editor .toastui-editor-contents *{
+    color: #383838; 
+}
+
+
+.dark-mode .toast-editor .toastui-editor-contents *{
+    color: #E5E9F0; 
+}

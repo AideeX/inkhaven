@@ -1,0 +1,80 @@
+
+.button {
+  padding: 0.5rem 1.5rem;
+  border-radius: 8px;
+  text-align: center;
+  transition: color 0.2s, background-color 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+  font-size: medium;
+  cursor: pointer;
+}
+
+
+.buttonPrimary {
+  background-color: #5b3095; 
+  color: #FCFAFB;
+}
+
+.buttonPrimary:hover {
+  background-color: #7C4DFF; 
+  color: #FCFAFB; 
+}
+
+.buttonPrimary:active {
+  background-color: #4B1FE7; 
+  color: #FCFAFB; 
+}
+
+.buttonPrimary:disabled {
+  background-color: #9A8FF7; 
+}
+
+
+.dark .buttonPrimary {
+  background-color: #5b3095;
+  color: #FCFAFB;
+}
+
+.dark .buttonPrimary:hover {
+  background-color: #7C4DFF;
+  color: #FCFAFB;
+}
+
+.dark .buttonPrimary:active {
+  background-color: #4B1FE7;
+  color: #FCFAFB;
+}
+
+.dark .buttonPrimary:disabled {
+  background-color: #9A8FF7;
+  color: #C4C4C4;
+}
+
+
+.transitionButton {
+  padding: 0.5rem 1.5rem;
+  border-radius: 8px;
+  text-align: center;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  background-color: #FCFAFB; 
+  color: #5A2EFF; 
+  border: 2px solid #5A2EFF; 
+  font-weight: bold;
+}
+
+.transitionButton:hover {
+  background-color: #f1f1f1; 
+  transform: translateY(-3px); 
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); 
+}
+
+.transitionButton:active {
+  transform: translateY(2px); 
+  background-color: #E0E0E0;
+}
+
+.transitionButton.transitioning {
+  transform: translateX(10px); 
+  opacity: 0; 
+}

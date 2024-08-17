@@ -21,7 +21,7 @@ const PostList: React.FC<{ tab: string }> = ({ tab }) => {
                     key={post.id}
                     post={{
                         id: post.id,
-                        title: post.title || 'Untitled',
+                        title: post.postTitle || 'Untitled',
                         content: post.content || 'No content available',
                         coverImageUrl: post.coverImageUrl || '', 
                         createdAt: new Date(post.createdAt)

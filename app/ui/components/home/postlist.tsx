@@ -6,7 +6,7 @@ import { HomePageSkeleton } from '@/app/ui/skeletons';
 
 const PostList: React.FC<{ tab: string }> = ({ tab }) => {
     const { posts, loading, error } = useAllPosts(tab) as {
-        posts: { id: string; title: string; content: string; coverImageUrl: string; createdAt: string; }[];
+        posts: { id: string; postTitle: string; content: string; coverImageUrl: string; createdAt: string; }[];
         loading: boolean;
         error: any;
     };
@@ -21,7 +21,7 @@ const PostList: React.FC<{ tab: string }> = ({ tab }) => {
                     key={post.id}
                     post={{
                         id: post.id,
-                        title: post.title || 'Untitled',
+                        title: post.postTitle || 'Untitled',
                         content: post.content || 'No content available',
                         coverImageUrl: post.coverImageUrl || '', 
                         createdAt: new Date(post.createdAt)

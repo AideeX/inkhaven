@@ -17,7 +17,7 @@ export default function Hero() {
             Ink your imagination and discover your next great read.
           </p>
           <div className="pt-4 py-2 md:py-3 px-4 md:px-6 text-sm md:text-base">
-            <GetStartedButton  />
+            <GetStartedButton />
           </div>
         </div>
 
@@ -27,7 +27,7 @@ export default function Hero() {
               src="/hero-image.svg"
               width={300}
               height={400}
-              className="rounded-lg shadow-lg hover:scale-105 transition-transform duration-300"
+              className="rounded-lg shadow-lg hover:scale-105 transition-transform duration-300 hidden md:block"
               alt="A cozy reading nook with soft lights and lots of books."
               priority={true}
             />
@@ -35,7 +35,7 @@ export default function Hero() {
               src="/networking2-hero.svg"
               width={250}
               height={350}
-              className="rounded-lg shadow-lg hover:scale-105 transition-transform duration-300"
+              className="rounded-lg shadow-lg hover:scale-105 transition-transform duration-300 hidden md:block"
               alt="A cozy networking event."
               loading="lazy"
             />
@@ -53,7 +53,7 @@ export default function Hero() {
               src="/networking1-hero.svg"
               width={300}
               height={500}
-              className="rounded-lg shadow-lg hover:scale-105 transition-transform duration-300"
+              className="rounded-lg shadow-lg hover:scale-105 transition-transform duration-300 hidden md:block"
               alt="People networking at an event."
               loading="lazy"
             />

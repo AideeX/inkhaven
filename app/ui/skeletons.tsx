@@ -1,151 +1,429 @@
-import { Skeleton, Box, Flex, SimpleGrid } from '@chakra-ui/react';
 
-export function HeroSkeleton() {
-    return (
-        <Box position="relative" h="100vh" w="full" shadow="lg">
-            <Skeleton position="absolute" inset="0" h="full" w="full" />
-            <Box zIndex="10" position="relative" display="flex" flexDirection="column" alignItems="center" h="full" px="8" pt="20" w={{ md: "50%" }}>
-                <Skeleton height="12" width="75%" mb="4" />
-                <Skeleton height="8" width="50%" mb="4" />
-                <Skeleton height="6" width="67%" mb="4" />
-                <Skeleton height="10" width="33%" mb="4" />
-            </Box>
-        </Box>
-    );
-}
 
-export function AboutSkeleton() {
+export  function HeroSkeleton() {
     return (
-        <Box bg="light.secondaryBg" p="8" shadow="lg" mt="8">
-            <Skeleton height="8" width="50%" mb="4" mx="auto" />
-            <Skeleton height="6" width="full" mb="4" />
-            <Skeleton height="6" width="75%" mb="4" />
-            <Skeleton height="6" width="67%" mb="4" />
-            <Skeleton height="6" width="50%" mb="4" alignSelf="end" />
-        </Box>
-    );
-}
+      <div className="relative h-screen flex w-full mt-4">
+        <section className="relative flex flex-col md:flex-row w-full h-full items-center justify-between px-4 md:px-8">
+          <div className="z-10 flex flex-col justify-center h-full md:w-1/2 space-y-4 text-center md:text-left">
+            <div className="h-10 bg-gray-300/75 animate-pulse rounded w-3/4 mx-auto md:mx-0">
+            </div>
+            <div className="h-10 bg-gray-300/75 animate-pulse rounded w-2/3 mx-auto md:mx-0">
+            </div>
+            <div className="h-6 bg-gray-300/75 animate-pulse rounded w-5/6 mx-auto md:mx-0">
 
-export function FeaturesSkeleton() {
-    return (
-        <Box bg="light.primary" py="16">
-            <Box maxW="7xl" mx="auto" px={{ base: "4", lg: "8" }}>
-                <Skeleton height="8" width="50%" mb="8" mx="auto" />
-                <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} spacing="8">
-                    {[...Array(4)].map((_, idx) => (
-                        <Box key={idx} p="6" bg="light.secondaryBg" borderRadius="lg" shadow="lg">
-                            <Skeleton height="12" width="12" mx="auto" mb="4" />
-                            <Skeleton height="6" width="50%" mx="auto" mb="2" />
-                            <Skeleton height="4" width="75%" mx="auto" mb="2" />
-                            <Skeleton height="4" width="67%" mx="auto" mb="2" />
-                            <Skeleton height="4" width="50%" mx="auto" mb="2" />
-                        </Box>
-                    ))}
-                </SimpleGrid>
-            </Box>
-        </Box>
+            </div>
+            <div className="pt-4 py-2 md:py-3 px-4 md:px-6">
+              <div className="h-10 bg-gray-300/75 animate-pulse rounded w-1/3 mx-auto md:mx-0">
+
+              </div>
+            </div>
+          </div>
+          <div className="relative z-10 flex flex-col md:flex-row h-full md:w-1/2 items-center justify-center space-x-0 md:space-x-4 space-y-4 md:space-y-0">
+            <div className="flex flex-col space-y-4">
+              <div className="w-[300px] h-[400px] bg-gray-300/75 animate-pulse rounded-lg shadow-lg hidden md:block">
+              </div>
+              <div className="w-[250px] h-[350px] bg-gray-300/75 animate-pulse rounded-lg shadow-lg hidden md:block">
+
+              </div>
+            </div>
+            <div className="flex flex-col space-y-4">
+              <div className="w-[300px] h-[400px] bg-gray-300/75 animate-pulse rounded-lg shadow-lg">
+              </div>
+              <div className="w-[300px] h-[500px] bg-gray-300/75 animate-pulse rounded-lg shadow-lg hidden md:block">
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
     );
-}
+  }
+
+  export function AboutSkeleton() {
+    return (
+      <section className="bg-gray-300/75 p-6 md:p-8 shadow-lg mt-8 rounded-lg mx-4 md:mx-0 animate-pulse">
+        <div className="h-8 bg-gray-300/75 rounded w-1/2 mx-auto mb-4">
+        </div>
+        <div className="h-4 bg-gray-300/75 rounded w-5/6 mx-auto mb-2">
+        </div>
+        <div className="h-4 bg-gray-300/75 rounded w-4/5 mx-auto mb-2">
+        </div>
+        <div className="h-4 bg-gray-300/75 rounded w-3/4 mx-auto mb-4">
+        </div>
+        <div className="text-center md:text-right">
+          <div className="h-6 bg-gray-300/75 rounded w-1/3 md:w-1/5 mx-auto md:mx-0">
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  export function FeaturesSkeleton() {
+    return (
+      <section className="bg-gray-300/75 py-12 md:py-16 animate-pulse">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="h-8 bg-gray-300/75 rounded w-1/3 mx-auto mb-8">
+          </div>
+          <div className="flex flex-col gap-8">
+            
+            <div className="flex flex-col md:flex-row items-center bg-gray-300/75 p-6 rounded-lg shadow-lg">
+              <div className="md:w-1/2 mb-4 md:mb-0">
+                <div className="w-[200px] h-[200px] bg-gray-300/75 rounded mx-auto md:mx-0">
+                </div>
+              </div>
+              <div className="md:w-1/2 md:ml-8 text-center md:text-left">
+                <div className="h-6 bg-gray-300/75 rounded w-1/2 mx-auto md:mx-0 mt-4 md:mt-0">
+                </div>
+                <div className="h-4 bg-gray-300/75 rounded w-5/6 mx-auto md:mx-0 mt-2">
+                </div>
+              </div>
+            </div>
+            
+            <div className="flex flex-col md:flex-row-reverse items-center bg-gray-300/75 p-6 rounded-lg shadow-lg">
+              <div className="md:w-1/2 mb-4 md:mb-0 md:ml-8"> 
+                <div className="w-[200px] h-[200px] bg-gray-300/75 rounded mx-auto md:mx-0">
+                </div>
+              </div>
+              <div className="md:w-1/2 text-center md:text-left">
+                <div className="h-6 bg-gray-300/75 rounded w-1/2 mx-auto md:mx-0 mt-4 md:mt-0">
+                </div>
+                <div className="h-4 bg-gray-300/75 rounded w-5/6 mx-auto md:mx-0 mt-2 md:mr-8">
+                </div>
+              </div>
+            </div>
+            
+            <div className="flex flex-col md:flex-row items-center bg-gray-300/75 p-6 rounded-lg shadow-lg">
+              <div className="md:w-1/2 mb-4 md:mb-0">
+                <div className="w-[200px] h-[200px] bg-gray-300/75 rounded mx-auto md:mx-0">
+                </div>
+              </div>
+              <div className="md:w-1/2 md:ml-8 text-center md:text-left">
+                <div className="h-6 bg-gray-300/75 rounded w-1/2 mx-auto md:mx-0 mt-4 md:mt-0">
+                </div>
+                <div className="h-4 bg-gray-300/75 rounded w-5/6 mx-auto md:mx-0 mt-2">
+                </div>
+              </div>
+            </div>
+            
+            <div className="flex flex-col md:flex-row-reverse items-center bg-gray-300/75 p-6 rounded-lg shadow-lg">
+              <div className="md:w-1/2 mb-4 md:mb-0 md:ml-8"> 
+                <div className="w-[200px] h-[200px] bg-gray-300/75 rounded mx-auto md:mx-0">
+                </div>
+              </div>
+              <div className="md:w-1/2 text-center md:text-left">
+                <div className="h-6 bg-gray-300/75 rounded w-1/2 mx-auto md:mx-0 mt-4 md:mt-0">
+                </div>
+                <div className="h-4 bg-gray-300/75 rounded w-5/6 mx-auto md:mx-0 mt-2 md:mr-8">
+                </div>
+              </div>
+            </div>
+  
+          </div>
+        </div>
+      </section>
+    );
+  }
 
 export function LandingPageSkeleton() {
     return (
-        <Box bg="light.primary" h="full">
-            <Box as="main" display="flex" flexDirection="column" h="screen" px="2">
+        <div>
                 <HeroSkeleton />
+                <div className="mt-8">
                 <AboutSkeleton />
+                </div>
+                <div className="mt-16">
                 <FeaturesSkeleton />
-            </Box>
-        </Box>
+                </div>
+           </div>
     );
 }
 
 export function TagSelectionSkeleton() {
     return (
-        <Box bg="gray.100" p="2" shadow="sm" borderRadius="xl" overflow="hidden" position="relative">
-            <Flex p="4">
-                <Skeleton height="5" width="5" borderRadius="md" bg="gray.200" />
-                <Skeleton ml="2" height="6" width="16" borderRadius="md" bg="gray.200" />
-            </Flex>
-            <Flex alignItems="center" justifyContent="center" bg="white" px="4" py="8" borderRadius="xl">
-                <Skeleton height="7" width="20" borderRadius="md" bg="gray.200" />
-            </Flex>
-        </Box>
+      <div className="p-6 bg-gray-300/75 rounded-xl shadow-3xl max-w-lg w-full mx-auto mt-10 sm:mt-20 animate-pulse">
+        <div className="h-8 bg-gray-300/75 rounded w-2/3 mx-auto mb-6">
+        </div>
+        <div className="flex justify-end mb-4">
+          <div className="h-4 bg-gray-300/75 rounded w-1/4">
+          </div>
+        </div>
+        <div className="grid grid-cols-3 gap-4">
+          {Array.from({ length: 9 }).map((_, index) => (
+            <div key={index} className="h-8 bg-gray-300/75 rounded"></div>
+          ))}
+        </div>
+        <div className="flex justify-center mt-6">
+          <div className="h-10 bg-gray-300/75 rounded w-1/3">
+          </div>
+        </div>
+      </div>
     );
-}
+  }
 
-export function SearchSkeleton() {
+  export function SearchSkeleton() {
     return (
-        <Box bg="white" _dark={{ bg: "dark.secondaryBg" }} mt="2" p="2" borderRadius="lg" shadow="lg" maxH="64" overflowY="auto" zIndex="50" position="absolute" top="full" left="0" right="0">
-            {[...Array(5)].map((_, index) => (
-                <Flex key={index} alignItems="center" px={4} py={2}>
-                    <Skeleton height="4" width="4" borderRadius="full" mr="4" bg="gray.300" _dark={{ bg: "gray.600" }} />
-                    <Skeleton flex="1" height="4" borderRadius="md" bg="gray.300" _dark={{ bg: "gray.600" }} />
-                </Flex>
+        <div className="absolute top-full left-0 right-0 bg-white dark:bg-dark-secondaryBg mt-2 p-2 rounded-lg shadow-lg max-h-64 overflow-y-auto z-50 animate-pulse">
+            {Array.from({ length: 5 }).map((_, index) => (
+                <div 
+                    key={index} 
+                    className="block px-4 py-2 bg-gray-300/75 dark:bg-dark-secondaryBg rounded mb-2">
+                </div>
             ))}
-        </Box>
+        </div>
     );
 }
 
 export function NotificationSkeleton() {
     return (
-        <Box bg="light.secondaryBg" _dark={{ bg: "dark.secondaryBg" }} p="4" borderRadius="lg" shadow="lg" zIndex="50" position="absolute" right="0" mt="2" w="64">
-            {[...Array(3)].map((_, index) => (
-                <Flex key={index} alignItems="center" px="4" py="2">
-                    <Skeleton height="6" width="6" borderRadius="full" mr="4" bg="gray.300" _dark={{ bg: "gray.600" }} />
-                    <Skeleton flex="1" height="4" borderRadius="md" bg="gray.300" _dark={{ bg: "gray.600" }} />
-                </Flex>
+        <div className="space-y-2">
+            {Array.from({ length: 5 }).map((_, index) => (
+                <div 
+                    key={index} 
+                    className="h-6 bg-gray-300/75 dark:bg-dark-secondaryBg rounded w-full animate-pulse">
+                </div>
             ))}
-        </Box>
+        </div>
     );
 }
 
 export function DashboardSkeleton() {
     return (
-        <Box mx="auto" mt={8} p={4}>
-            {[...Array(3)].map((_, index) => (
-                <Box key={index} bg="light.secondaryBg" _dark={{ bg: "dark.secondaryBg" }} p="6" borderRadius="lg" shadow="lg" overflow="hidden">
-                    <Skeleton height="8" width="75%" mb="4" bg="light.secondaryBg" _dark={{ bg: "dark.secondaryBg" }} />
-                    <Skeleton height="6" width="50%" mb="2" bg="light.secondaryBg" _dark={{ bg: "dark.secondaryBg" }} />
-                    <Skeleton height="6" width="33%" mb="2" bg="light.secondaryBg" _dark={{ bg: "dark.secondaryBg" }} />
-                    <Skeleton height="6" width="25%" mb="2" bg="light.secondaryBg" _dark={{ bg: "dark.secondaryBg" }} />
-                    <Skeleton height="6" width="20%" bg="light.secondaryBg" _dark={{ bg: "dark.secondaryBg" }} />
-                </Box>
-            ))}
-        </Box>
-    );
-}
-
-export function HomePageSkeleton() {
-    return (
-        <Box mx="auto" mt="8" p="4">
-            <Skeleton height="8" width="25%" mb="4" borderRadius="md" bg="light.secondaryBg" _dark={{ bg: "dark.secondaryBg" }} />
-            <Box display="flex" justifyContent="space-between" mb="4">
-                {[...Array(3)].map((_, index) => (
-                    <Skeleton key={index} height={10} width="25%" borderRadius="md" bg="light.secondaryBg" _dark={{ bg: "dark.secondaryBg" }} />
+        <div className="p-6 bg-light-primary dark:bg-dark-primary text-light-text dark:text-dark-text animate-pulse">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+                {Array.from({ length: 4 }).map((_, index) => (
+                    <div key={index} className="p-4 bg-gray-300/75 dark:bg-dark-secondaryBg rounded-lg shadow-lg text-center">
+                        <div className="h-6 bg-gray-300/75 rounded w-3/4 mx-auto mb-4"></div>
+                        <div className="h-8 bg-gray-300/75 rounded w-1/2 mx-auto"></div>
+                    </div>
                 ))}
-            </Box>
-            {[...Array(3)].map((_, index) => (
-                <Box key={index} p={4} mb={4} bg="light.secondaryBg" _dark={{ bg: "dark.secondaryBg" }} borderRadius="lg" shadow="md">
-                    <Skeleton height={6} width="75%" mb={2} bg="light.secondaryBg" _dark={{ bg: "dark.secondaryBg" }} />
-                    <Skeleton height={4} width="50%" mb={2} bg="light.secondaryBg" _dark={{ bg: "dark.secondaryBg" }} />
-                    <Skeleton height={4} width="33%" bg="light.secondaryBg" _dark={{ bg: "dark.secondaryBg" }} />
-                </Box>
-            ))}
-        </Box>
+            </div>
+
+            <div className="p-6 bg-gray-300/75 dark:bg-dark-secondaryBg rounded-lg shadow-lg">
+                <div className="h-6 bg-gray-300/75 rounded w-1/3 mb-4"></div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    {Array.from({ length: 4 }).map((_, index) => (
+                        <div key={index} className="flex flex-col items-center">
+                            <div className="relative w-full h-48 bg-gray-300/75 dark:bg-dark-accentLight rounded-lg mb-2"></div>
+                            <div className="h-4 bg-gray-300/75 rounded w-1/2"></div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
     );
 }
 
-export function UserPostsSkeleton() {
+export function HomeSkeleton() {
+  return (
+      <div className="bg-light-primary dark:bg-dark-primary h-full">
+          <div className="container mx-auto flex flex-col md:flex-row mt-8 p-4 space-x-4">
+              <div className="w-full md:w-2/3">
+                  <MainContentSkeleton />
+              </div>
+              <div className="w-full md:w-1/3 space-y-8">
+                  <FeaturedPostsSkeleton />
+                  <CommunityMembersSkeleton />
+              </div>
+          </div>
+      </div>
+  );
+}
+
+export function ProfileSkeleton() {
     return (
-        <Box mx="auto" mt={8} p={4}>
-            <Skeleton height={8} width="25%" mb={4} borderRadius="md" bg="light.secondaryBg" _dark={{ bg: "dark.secondaryBg" }} />
-            {[...Array(3)].map((_, index) => (
-                <Box key={index} p="4" mb="4" bg="light.secondaryBg" _dark={{ bg: "dark.secondaryBg" }} borderRadius="lg" shadow="md">
-                    <Skeleton height="6" width="75%" mb="2" bg="light.secondaryBg" _dark={{ bg: "dark.secondaryBg" }} />
-                    <Skeleton height="4" width="50%" mb="2" bg="light.secondaryBg" _dark={{ bg: "dark.secondaryBg" }} />
-                    <Skeleton height="4" width="33%" bg="light.secondaryBg" _dark={{ bg: "dark.secondaryBg" }} />
-                </Box>
-            ))}
-        </Box>
+        <div className="container mx-auto mt-8 p-4 bg-light-secondaryBg dark:bg-dark-secondaryBg rounded-xl shadow-3xl animate-pulse">
+            <div className="flex items-center space-x-4">
+                <div className="rounded-full bg-gray-300/75 dark:bg-dark-secondaryBg h-20 w-20"></div>
+                <div>
+                    <div className="h-6 bg-gray-300/75 dark:bg-dark-secondaryBg rounded w-40 mb-2"></div>
+                    <div className="h-4 bg-gray-300/75 dark:bg-dark-secondaryBg rounded w-64 mb-2"></div>
+                    <div className="h-4 bg-gray-300/75 dark:bg-dark-secondaryBg rounded w-32"></div>
+                </div>
+            </div>
+
+            <div className="mt-4 flex space-x-6">
+                {Array.from({ length: 3 }).map((_, index) => (
+                    <div key={index}>
+                        <div className="h-6 bg-gray-300/75 dark:bg-dark-secondaryBg rounded w-12 mb-1"></div>
+                        <div className="h-4 bg-gray-300/75 dark:bg-dark-secondaryBg rounded w-20"></div>
+                    </div>
+                ))}
+            </div>
+
+            <div className="mt-8">
+                <div className="h-6 bg-gray-300/75 dark:bg-dark-secondaryBg rounded w-40 mb-4"></div>
+                <div className="space-y-2">
+                    {Array.from({ length: 3 }).map((_, index) => (
+                        <div key={index} className="h-4 bg-gray-300/75 dark:bg-dark-secondaryBg rounded w-full"></div>
+                    ))}
+                </div>
+            </div>
+
+            <div className="mt-8">
+                <div className="h-6 bg-gray-300/75 dark:bg-dark-secondaryBg rounded w-40 mb-4"></div>
+                <div className="space-y-2">
+                    {Array.from({ length: 3 }).map((_, index) => (
+                        <div key={index} className="h-4 bg-gray-300/75 dark:bg-dark-secondaryBg rounded w-full"></div>
+                    ))}
+                </div>
+            </div>
+
+            <div className="mt-8 space-y-4">
+                {Array.from({ length: 3 }).map((_, index) => (
+                    <div key={index}>
+                        <div className="h-4 bg-gray-300/75 dark:bg-dark-secondaryBg rounded w-1/2 mb-2"></div>
+                        <div className="h-10 bg-gray-300/75 dark:bg-dark-secondaryBg rounded"></div>
+                    </div>
+                ))}
+                <div className="h-10 bg-gray-300/75 dark:bg-dark-secondaryBg rounded w-32 mt-4"></div>
+            </div>
+        </div>
+    );
+}
+
+export function MainContentSkeleton() {
+    return (
+        <div className="container flex flex-col mx-auto mt-8 p-4 bg-light-primary dark:bg-dark-primary rounded-lg shadow-lg animate-pulse">
+            <div className="flex space-x-4 mb-4">
+                <div className="h-8 w-24 bg-gray-300/75 dark:bg-dark-secondaryBg rounded-lg"></div>
+                <div className="h-8 w-24 bg-gray-300/75 dark:bg-dark-secondaryBg rounded-lg"></div>
+                <div className="h-8 w-24 bg-gray-300/75 dark:bg-dark-secondaryBg rounded-lg"></div>
+            </div>
+
+            <div className="space-y-4">
+                {Array.from({ length: 3 }).map((_, index) => (
+                    <div key={index} className="h-40 bg-gray-300/75 dark:bg-dark-secondaryBg rounded-lg"></div>
+                ))}
+            </div>
+        </div>
+    );
+}
+
+export function FeaturedPostsSkeleton() {
+  return (
+      <div className="bg-light-secondaryBg dark:bg-dark-secondaryBg p-4 rounded-lg shadow-md animate-pulse">
+          <div className="h-6 bg-gray-300/75 dark:bg-dark-secondaryBg rounded w-1/3 mb-4"></div>
+          <div className="space-y-4">
+              {Array.from({ length: 3 }).map((_, index) => (
+                  <div key={index} className="flex items-center p-2 rounded-md">
+                      <div className="w-16 h-16 bg-gray-300/75 dark:bg-dark-secondaryBg rounded-md"></div>
+                      <div className="ml-4 flex-1">
+                          <div className="h-4 bg-gray-300/75 dark:bg-dark-secondaryBg rounded w-3/4 mb-2"></div>
+                          <div className="h-4 bg-gray-300/75 dark:bg-dark-secondaryBg rounded w-1/2"></div>
+                      </div>
+                  </div>
+              ))}
+          </div>
+      </div>
+  );
+}
+
+export function CommunityMembersSkeleton() {
+  return (
+      <div className="bg-light-secondaryBg dark:bg-dark-secondaryBg p-4 rounded-lg shadow-md mt-8 animate-pulse">
+          <div className="flex justify-between items-center mb-4">
+              <div className="h-6 bg-gray-300/75 dark:bg-dark-secondaryBg rounded w-1/3"></div>
+              <div className="h-4 bg-gray-300/75 dark:bg-dark-secondaryBg rounded w-16"></div>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+              {Array.from({ length: 6 }).map((_, index) => (
+                  <div key={index} className="flex items-center space-x-4 p-2 rounded cursor-pointer">
+                      <div className="w-12 h-12 bg-gray-300/75 dark:bg-dark-secondaryBg rounded-full"></div>
+                      <div className="flex-1">
+                          <div className="h-4 bg-gray-300/75 dark:bg-dark-secondaryBg rounded w-3/4"></div>
+                      </div>
+                  </div>
+              ))}
+          </div>
+      </div>
+  );
+}
+
+export function AllMembersSkeleton() {
+    return (
+        <div className="bg-light-primary dark:bg-dark-primary p-4 rounded-lg shadow-md mt-8 w-3/4 mx-auto animate-pulse">
+            <div className="flex justify-center items-center mb-4">
+                <div className="h-6 bg-gray-300/75 dark:bg-dark-secondaryBg rounded w-1/3"></div>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                {Array.from({ length: 6 }).map((_, index) => (
+                    <div
+                        key={index}
+                        className="bg-light-secondaryBg dark:bg-dark-secondaryBg p-6 rounded-lg shadow w-full max-w-sm mx-auto min-h-[160px] flex flex-col items-center justify-center"
+                    >
+                        <div className="flex items-center space-x-4">
+                            <div className="w-14 h-14 bg-gray-300/75 dark:bg-dark-secondaryBg rounded-full"></div>
+                            <div className="h-4 bg-gray-300/75 dark:bg-dark-secondaryBg rounded w-3/4"></div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+            <div className="flex justify-center mt-4">
+                <div className="h-10 bg-gray-300/75 dark:bg-dark-secondaryBg rounded w-32"></div>
+            </div>
+        </div>
+    );
+}
+
+
+
+export function SinglePostSkeleton() {
+    return (
+        <div className="shadow bg-gradient-to-r from-light-secondaryBg to-light-primary dark:from-dark-secondaryBg dark:to-dark-primary p-4 sm:p-6 md:p-8 min-h-screen w-full sm:w-11/12 md:w-2/3 lg:w-3/4 mx-auto rounded-xl animate-pulse">
+            <div className="w-full h-48 sm:h-64 md:h-80 bg-gray-300/75 dark:bg-dark-secondaryBg rounded-lg mb-4 sm:mb-6 md:mb-8"></div>
+            <div className="h-10 sm:h-12 md:h-16 bg-gray-300/75 dark:bg-dark-secondaryBg rounded w-3/4 mx-auto mb-4 sm:mb-6 md:mb-8"></div>
+            <div className="space-y-4">
+                {Array.from({ length: 6 }).map((_, index) => (
+                    <div key={index} className="h-4 sm:h-5 md:h-6 bg-gray-300/75 dark:bg-dark-secondaryBg rounded"></div>
+                ))}
+            </div>
+        </div>
+    );
+}
+
+export function MobileFeaturedSkeleton() {
+  return (
+      <div className="bg-light-secondaryBg dark:bg-dark-secondaryBg p-4 rounded-lg shadow-md mt-4 md:mt-0 animate-pulse">
+          <div className="h-6 bg-gray-300/75 dark:bg-dark-secondaryBg rounded w-1/3 mx-auto mb-4"></div>
+          <div className="space-y-2">
+              {Array.from({ length: 3 }).map((_, index) => (
+                  <div 
+                      key={index} 
+                      className="flex items-center p-2 rounded-lg cursor-pointer transition-colors bg-gray-300/75 dark:bg-dark-secondaryBg"
+                  >
+                      <div className="w-12 h-12 bg-gray-300/75 dark:bg-dark-secondaryBg rounded-lg"></div>
+                      <div className="ml-4 flex-1">
+                          <div className="h-4 bg-gray-300/75 dark:bg-dark-secondaryBg rounded w-3/4 mb-2"></div>
+                          <div className="h-3 bg-gray-300/75 dark:bg-dark-secondaryBg rounded w-1/2"></div>
+                      </div>
+                  </div>
+              ))}
+          </div>
+      </div>
+  );
+}
+
+export function CommentListSkeleton() {
+    return (
+        <div className="shadow bg-light-secondaryBg dark:bg-dark-secondaryBg p-4 mt-8 md:mx-4 sm:p-6 md:p-8 min-h-screen w-full sm:w-11/12 md:w-2/3 lg:w-3/4 mx-auto rounded-xl animate-pulse">
+            <div className="mb-4">
+                <div className="h-10 bg-gray-300/75 dark:bg-dark-secondaryBg rounded w-full mb-2"></div>
+                <div className="h-8 bg-gray-300/75 dark:bg-dark-secondaryBg rounded w-1/2"></div>
+            </div>
+            <ul className="space-y-4 mt-4">
+                {Array.from({ length: 3 }).map((_, index) => (
+                    <li key={index} className="flex space-x-4">
+                        <div className="w-10 h-10 bg-gray-300/75 dark:bg-dark-secondaryBg rounded-full"></div>
+                        <div className="flex-1">
+                            <div className="h-4 bg-gray-300/75 dark:bg-dark-secondaryBg rounded w-1/3 mb-2"></div>
+                            <div className="h-4 bg-gray-300/75 dark:bg-dark-secondaryBg rounded w-full mb-2"></div>
+                            <div className="h-4 bg-gray-300/75 dark:bg-dark-secondaryBg rounded w-5/6"></div>
+                        </div>
+                    </li>
+                ))}
+            </ul>
+            <div className="mt-6 text-center">
+                <div className="h-10 bg-gray-300/75 dark:bg-dark-secondaryBg rounded w-32 mx-auto"></div>
+            </div>
+        </div>
     );
 }

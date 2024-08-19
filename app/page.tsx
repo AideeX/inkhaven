@@ -9,7 +9,9 @@ export default function Home() {
       <Header />
       <main className="flex flex-col h-screen px-2">
         <HeroWrapper />
+        <section className="mt-8">
         <AboutWrapper />
+        </section>
         <section className="mt-8">
           <FeaturesWrapper />
         </section>

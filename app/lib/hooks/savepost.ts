@@ -4,11 +4,9 @@ import { doc, setDoc } from "firebase/firestore";
 import { db } from "@/app/lib/firebase/config";
 import { useAuth } from '@/app/lib/firebase/auth/authcontext'; 
 
-
 const generateKeywords = (title: string, tags: string[], content: string): string[] => {
     const titleKeywords = title.toLowerCase().split(' ');
     const tagKeywords = tags.map(tag => tag.toLowerCase());
-    
 
     const contentKeywords = content
         .split(' ')
@@ -25,16 +23,22 @@ export const useFirestoreSave = () => {
     const saveToFirestore = async (collection: string, data: { postTitle: string, content: string, tags: string[], [key: string]: any }) => {
         try {
             const documentId = new Date().getTime().toString(); 
-            const docRef = doc(db, collection, documentId); 
+            const docRef = doc(db, collection, documentId);
 
-    
+            const postTitleLowercase = data.postTitle.toLowerCase();
+            const contentLowercase = data.content.toLowerCase();
+            const tagsLowercase = data.tags.map(tag => tag.toLowerCase());
+
             const keywords = generateKeywords(data.postTitle, data.tags, data.content);
 
             await setDoc(docRef, {
                 ...data,
+                postTitle_lowercase: postTitleLowercase, 
+                tags_lowercase: tagsLowercase,       
                 keywords, 
                 authorId: user?.uid || 'Anonymous',
                 authorName: user?.displayName || 'Anonymous',
+                authorName_lowercase: user?.displayName?.toLowerCase() || 'anonymous', 
                 createdAt: new Date(),
                 updatedAt: new Date(),
             });
@@ -47,6 +51,7 @@ export const useFirestoreSave = () => {
                     likes: 0,
                     comments: 0,
                     bookmarks: 0,
+                    shares: 0, 
                 });
             }
 

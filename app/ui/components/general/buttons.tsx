@@ -34,11 +34,12 @@ export const GetStartedButton = () => (
 export const CreateButton = () => (
   <Link 
     href="/home/new" 
-    className={`${styles.button} ${styles.buttonPrimary} py-1 px-2 md:py-2 md:px-4`}
+    className={`${styles.button} ${styles.buttonPrimary} py-1 px-2 sm:py-1.5 sm:px-3 md:py-2 md:px-4`}
   >
     Create
   </Link>
 );
+
 
 export const FormSignUpButton = () => (
   <Link 

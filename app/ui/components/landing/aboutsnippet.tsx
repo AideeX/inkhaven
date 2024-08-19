@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export default function AboutSnippet() {
   return (
-    <section id="about" className="bg-light-secondaryBg p-6 md:p-8 shadow-lg mt-8 rounded-lg">
+    <section id="about" className="bg-light-secondaryBg p-6 md:p-8 shadow-lg mt-8 rounded-lg mx-4 md:mx-0">
       <h2 className={`text-2xl md:text-3xl font-bold text-light-heading mb-4 text-center ${literata.className}`}>
         About InkHaven
       </h2>

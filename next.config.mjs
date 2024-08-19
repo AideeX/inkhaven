@@ -6,6 +6,7 @@ const nextConfig = {
         'platform-lookaside.fbsbx.com', 
         'pbs.twimg.com', 
         'res.cloudinary.com',
+        "www.gravatar.com",
         
       ],
     },

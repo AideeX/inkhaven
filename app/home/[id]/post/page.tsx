@@ -3,11 +3,14 @@
 import PostPage from "@/app/ui/components/posts/post";
 import Link from 'next/link';
 import { FaArrowLeftLong } from 'react-icons/fa6';
-import Comments from "@/app/ui/components/posts/comments";
+import CommentList from "@/app/ui/components/posts/commentlist"; 
 import { useParams } from 'next/navigation';
 
 export default function Post() {
-    const { id: postId } = useParams(); 
+    const { id } = useParams();
+    
+
+    const postId = Array.isArray(id) ? id[0] : id;
 
     return (
         <div className="bg-light-primary dark:bg-dark-primary">
@@ -16,8 +19,8 @@ export default function Post() {
                     <FaArrowLeftLong color="#5A2EFF" size={36} />
                 </Link>
             </div>
-            <PostPage  /> 
-            <Comments postId={postId.toString()} />
+            <PostPage /> 
+            <CommentList postId={postId} />
         </div>
-    )
+    );
 }

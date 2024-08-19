@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useAnalytics } from '@/app/lib/hooks/analytics';
+import { DashboardSkeleton } from '../../skeletons';
 
 const Dashboard: React.FC = () => {
     const { analytics, loading, error } = useAnalytics();
@@ -20,7 +21,7 @@ const Dashboard: React.FC = () => {
     }, [analytics]);
 
     if (loading) {
-        return <div className="text-light-text dark:text-dark-text">Loading...</div>;
+        return <DashboardSkeleton/>;
     }
 
     if (error) {

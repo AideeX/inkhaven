@@ -1,4 +1,3 @@
-
 .button {
   padding: 0.5rem 1.5rem;
   border-radius: 8px;
@@ -9,7 +8,6 @@
   font-size: medium;
   cursor: pointer;
 }
-
 
 .buttonPrimary {
   background-color: #5b3095; 
@@ -30,7 +28,6 @@
   background-color: #9A8FF7; 
 }
 
-
 .dark .buttonPrimary {
   background-color: #5b3095;
   color: #FCFAFB;
@@ -50,7 +47,6 @@
   background-color: #9A8FF7;
   color: #C4C4C4;
 }
-
 
 .transitionButton {
   padding: 0.5rem 1.5rem;
@@ -77,4 +73,41 @@
 .transitionButton.transitioning {
   transform: translateX(10px); 
   opacity: 0; 
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 1024px) {
+  .button {
+    padding: 0.4rem 1.2rem;
+    font-size: small;
+  }
+
+  .transitionButton {
+    padding: 0.4rem 1.2rem;
+    font-size: small;
+  }
+}
+
+@media (max-width: 768px) {
+  .button {
+    padding: 0.3rem 1rem;
+    font-size: small;
+  }
+
+  .transitionButton {
+    padding: 0.3rem 1rem;
+    font-size: small;
+  }
+}
+
+@media (max-width: 640px) {
+  .button {
+    padding: 0.3rem 0.8rem;
+    font-size: smaller;
+  }
+
+  .transitionButton {
+    padding: 0.3rem 0.8rem;
+    font-size: smaller;
+  }
 }

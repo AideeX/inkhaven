@@ -29,7 +29,10 @@ export const useTags = () => {
         "Firebase", 
         "TailwindCSS", 
         "Health", 
-        "Finance"
+        "Finance",
+        'IT',
+        'AI',
+        'Lifestyle',
     ], []);
 
     const availableTags = useMemo(() => {

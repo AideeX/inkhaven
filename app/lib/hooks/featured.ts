@@ -6,8 +6,9 @@ import { db } from '@/app/lib/firebase/config';
 
 type Post = {
     id: string;
-    title: string;
+    postTitle: string;
     coverImageUrl?: string;
+    content: string;
     createdAt: Date;
 };
 

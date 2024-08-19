@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { playfairDisplay } from './ui/styles/fonts';
+import { playfairDisplay } from '@/app/ui/styles/fonts';
 
 export default function Custom404() {
   return (
@@ -13,7 +13,7 @@ export default function Custom404() {
         <p className="text-2xl text-light-text dark:text-dark-text mb-6">
                 Oops! The page you are looking for doesn&apos;t exist.
         </p>
-        <Link href="/" className="text-dark-text dark:text-dark-linkDefault hover:text-dark-text dark:hover:text-dark-linkHover bg-light-buttonDefault dark:bg-dark-buttonDefault py-2 px-4 rounded-md">Go Home</Link>
+        <Link href="/home" className="text-dark-text dark:text-dark-linkDefault hover:text-dark-text dark:hover:text-dark-linkHover bg-light-buttonDefault dark:bg-dark-buttonDefault py-2 px-4 rounded-md">Go Home</Link>
       </div>
     </div>
   );

@@ -125,15 +125,11 @@ const SignUpForm = () => {
 
     return (
         <div className="relative flex flex-col md:flex-row justify-center items-center min-h-screen w-2/3 mx-auto bg-[url('/purple-bg2.PNG')] bg-cover bg-center rounded-lg shadow-2xl">
-  
-
-  <Link href='/' className="absolute top-4 right-4">
-    <Image src="/darkmode.svg" alt="InkHaven" width={150} height={50} />
-  </Link>
-  
-
   <div className="flex flex-col w-full md:w-1/2 p-8 bg-light-secondaryBg rounded-lg md:rounded-l-lg shadow-lg">
     <div className="w-full h-full">
+    <Link href='/' className="hidden md:block absolute right-4">
+  <Image src="/darkmode.svg" alt="InkHaven" width={150} height={50} />
+</Link>
       <h1 className={`text-3xl font-bold text-center mb-6 ${literata.className}`}>
         Join the InkHaven Community
       </h1>
@@ -191,13 +187,13 @@ const SignUpForm = () => {
         <p className="text-sm text-light-text">or</p>
       </div>
       <div className="space-y-2">
-        <button onClick={handleGoogleSignUp} className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-light-heading bg-light-primary hover:bg-light-accentLight focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-light-accentMedium">
+             <button onClick={handleGoogleSignUp} className="w-full flex justify-center py-1 px-2 sm:py-2 sm:px-4 border border-transparent rounded-md shadow-sm text-xs sm:text-sm font-medium text-light-heading bg-light-primary hover:bg-light-accentLight focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-light-accentMedium">
           <FaGoogle className="mr-2 text-red-600" /> Sign Up with Google
         </button>
-        <button onClick={handleFacebookSignUp} className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-light-heading bg-light-primary hover:bg-light-accentLight focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-light-accentMedium">
+        <button onClick={handleFacebookSignUp} className="w-full flex justify-center py-1 px-2 sm:py-2 sm:px-4 border border-transparent rounded-md shadow-sm text-xs sm:text-sm font-medium text-light-heading bg-light-primary hover:bg-light-accentLight focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-light-accentMedium">
           <FaFacebook className="mr-2 text-blue-600" /> Sign Up with Facebook
         </button>
-        <button onClick={handleTwitterSignUp} className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-light-heading bg-light-primary hover:bg-light-accentLight focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-light-accentMedium">
+        <button onClick={handleTwitterSignUp} className="w-full flex justify-center py-1 px-2 sm:py-2 sm:px-4 border border-transparent rounded-md shadow-sm text-xs sm:text-sm font-medium text-light-heading bg-light-primary hover:bg-light-accentLight focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-light-accentMedium">
           <FaTwitter className="mr-2 text-blue-400" /> Sign Up with Twitter
         </button>
       </div>

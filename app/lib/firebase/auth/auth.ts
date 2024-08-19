@@ -146,16 +146,11 @@ export const fetchSignInMethodsForEmail = async (email: string): Promise<string[
 
 export const sendPasswordResetEmail = async (email: string): Promise<void> => {
     try {
-        const signInMethods = await fetchSignInMethodsForEmail(email);
-        
-        if (signInMethods.length === 0) {
-            throw new Error("This email isn't registered on InkHaven");
-        }
-
         await firebaseSendPasswordResetEmail(auth, email);
         console.log("Password reset email sent successfully");
     } catch (error) {
         console.error("Error sending password reset email: ", error);
-        throw error;
+        throw new Error("This email isn't registered on InkHaven");
     }
 };
+

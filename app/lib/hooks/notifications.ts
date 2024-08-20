@@ -1,14 +1,13 @@
-'use client'
+'use client';
 
-import useSWR from 'swr';
-import { collection, query, where, orderBy, getDocs } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
+import { collection, query, where, orderBy, onSnapshot } from 'firebase/firestore';
 import { db } from '@/app/lib/firebase/config';
 import { useAuth } from '@/app/lib/firebase/auth/authcontext';
 
-
 type Notification = {
     id: string;
-    type: 'follow' | 'like' | 'comment';
+    type: 'follow' | 'like' | 'comment' | 'reply';
     sourceUserId: string;
     targetProfileId: string;
     targetPostId?: string;
@@ -16,29 +15,38 @@ type Notification = {
     createdAt: Date;
 };
 
-const fetchNotifications = async (userId: string): Promise<Notification[]> => {
-    const notificationsRef = collection(db, 'notifications');
-    const notificationsQuery = query(
-        notificationsRef,
-        where('targetProfileId', '==', userId),
-        orderBy('createdAt', 'desc')
-    );
-
-    const querySnapshot = await getDocs(notificationsQuery);
-    return querySnapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data(),
-        createdAt: doc.data().createdAt.toDate(), 
-    } as Notification));
-};
-
 export const useNotifications = () => {
     const { user } = useAuth();
+    const [notifications, setNotifications] = useState<Notification[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
 
-    const { data: notifications = [], error } = useSWR(
-        user ? ['notifications', user.uid] : null,
-        () => fetchNotifications(user!.uid),
-    );
+    useEffect(() => {
+        if (!user) return;
 
-    return { notifications, loading: !error && !notifications.length, error };
+        const notificationsRef = collection(db, 'notifications');
+        const notificationsQuery = query(
+            notificationsRef,
+            where('targetProfileId', '==', user.uid),
+            orderBy('createdAt', 'desc')
+        );
+
+        const unsubscribe = onSnapshot(notificationsQuery, (snapshot) => {
+            const fetchedNotifications: Notification[] = snapshot.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data(),
+                createdAt: doc.data().createdAt.toDate(),
+            } as Notification));
+
+            setNotifications(fetchedNotifications);
+            setLoading(false);
+        }, (err) => {
+            setError(err.message);
+            setLoading(false);
+        });
+
+        return () => unsubscribe();
+    }, [user]);
+
+    return { notifications, loading, error };
 };

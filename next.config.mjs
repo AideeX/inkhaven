@@ -4,6 +4,7 @@ const nextConfig = {
       domains: [
         'lh3.googleusercontent.com', 
         'platform-lookaside.fbsbx.com', 
+        "graph.facebook.com",
         'pbs.twimg.com', 
         'res.cloudinary.com',
         "www.gravatar.com",

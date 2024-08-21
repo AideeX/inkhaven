@@ -1,8 +1,8 @@
 'use client';
 
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "@/app/lib/firebase/config";
-import { useAuth } from '@/app/lib/firebase/auth/authcontext'; 
+import { useAuth } from '@/app/lib/firebase/auth/authcontext';
 
 const generateKeywords = (title: string, tags: string[], content: string): string[] => {
     const titleKeywords = title.toLowerCase().split(' ');
@@ -10,19 +10,22 @@ const generateKeywords = (title: string, tags: string[], content: string): strin
 
     const contentKeywords = content
         .split(' ')
-        .slice(0, 20) 
+        .slice(0, 20)
         .map(word => word.toLowerCase());
 
     const allKeywords = [...titleKeywords, ...tagKeywords, ...contentKeywords];
-    return Array.from(new Set(allKeywords)); 
+    return Array.from(new Set(allKeywords));
 };
 
 export const useFirestoreSave = () => {
-    const { user } = useAuth(); 
+    const { user } = useAuth();
 
-    const saveToFirestore = async (collection: string, data: { postTitle: string, content: string, tags: string[], [key: string]: any }) => {
+    const saveToFirestore = async (
+        collection: string,
+        data: { postId?: string, postTitle: string, content: string, tags: string[], [key: string]: any }
+    ) => {
         try {
-            const documentId = new Date().getTime().toString(); 
+            const documentId = data.postId || new Date().getTime().toString(); 
             const docRef = doc(db, collection, documentId);
 
             const postTitleLowercase = data.postTitle.toLowerCase();
@@ -31,28 +34,41 @@ export const useFirestoreSave = () => {
 
             const keywords = generateKeywords(data.postTitle, data.tags, data.content);
 
-            await setDoc(docRef, {
+            const postData = {
                 ...data,
-                postTitle_lowercase: postTitleLowercase, 
-                tags_lowercase: tagsLowercase,       
-                keywords, 
+                postTitle_lowercase: postTitleLowercase,
+                content_lowercase: contentLowercase,
+                tags_lowercase: tagsLowercase,
+                keywords,
                 authorId: user?.uid || 'Anonymous',
                 authorName: user?.displayName || 'Anonymous',
-                authorName_lowercase: user?.displayName?.toLowerCase() || 'anonymous', 
-                createdAt: new Date(),
+                authorName_lowercase: user?.displayName?.toLowerCase() || 'anonymous',
+                createdAt: data.postId ? data.createdAt : new Date(),
                 updatedAt: new Date(),
-            });
+            };
 
-            if (collection === "posts") {
+            if (data.postId) {
+                await updateDoc(docRef, postData);
+
                 const analyticsDocRef = doc(db, "analytics", documentId);
-                await setDoc(analyticsDocRef, {
-                    postId: documentId,
-                    views: 0,
-                    likes: 0,
-                    comments: 0,
-                    bookmarks: 0,
-                    shares: 0, 
+                await updateDoc(analyticsDocRef, {
+                    postTitle: postData.postTitle,
                 });
+            } else {
+                await setDoc(docRef, postData);
+
+                if (collection === "posts") {
+                    const analyticsDocRef = doc(db, "analytics", documentId);
+                    await setDoc(analyticsDocRef, {
+                        postId: documentId,
+                        postTitle: postData.postTitle,
+                        views: 0,
+                        likes: 0,
+                        comments: 0,
+                        bookmarks: 0,
+                        shares: 0,
+                    });
+                }
             }
 
             console.log("Data saved successfully to Firestore");
@@ -64,7 +80,6 @@ export const useFirestoreSave = () => {
 
     return { saveToFirestore };
 };
-
 
 export const updateGlobalTagsCollection = async (tags: string[]) => {
     try {

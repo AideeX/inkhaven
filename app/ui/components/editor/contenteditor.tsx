@@ -1,10 +1,12 @@
 'use client';
 
 import { Editor } from "@toast-ui/react-editor";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useAuth } from "@/app/lib/firebase/auth/authcontext";
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import { useFirestoreSave, updateGlobalTagsCollection } from "@/app/lib/hooks/savepost"; 
+import { doc, getDoc, updateDoc } from "firebase/firestore"; 
+import { db } from "@/app/lib/firebase/config";
 import PostTitleInput from "@/app/ui/components/editor/posttitle";
 import EditorComponent from "@/app/ui/components/editor/editor";
 import TagsManager from "@/app/ui/components/editor/tagsmanager";
@@ -16,16 +18,39 @@ const ContentEditor: React.FC = () => {
     const { user: currentUser, role } = useAuth(); 
     const { saveToFirestore } = useFirestoreSave(); 
     const router = useRouter(); 
+    const { id } = useParams(); 
 
     const [postTitle, setPostTitle] = useState("");
     const [tags, setTags] = useState<string[]>([]);
     const [coverImageUrl, setCoverImageUrl] = useState<string | null>(null);
     const [isSaving, setIsSaving] = useState(false);
     const [isFeatured, setIsFeatured] = useState(false); 
+    const [isEditing, setIsEditing] = useState(false); 
+
+    useEffect(() => {
+        const fetchPostData = async () => {
+            if (id) { 
+                setIsEditing(true);
+                const postRef = doc(db, "posts", id.toString()); 
+                const postDoc = await getDoc(postRef);
+                if (postDoc.exists()) {
+                    const postData = postDoc.data();
+                    setPostTitle(postData.postTitle);
+                    setTags(postData.tags || []);
+                    setCoverImageUrl(postData.coverImageUrl || null);
+                    setIsFeatured(postData.isFeatured || false);
+                    editorRef.current?.getInstance().setMarkdown(postData.content || "");
+                } else {
+                    console.error("Post not found");
+                }
+            }
+        };
+
+        fetchPostData();
+    }, [id]);
 
     const handleSave = async (status: "draft" | "published") => {
         if (editorRef.current && currentUser) {
-            console.log("Post Title before save:", postTitle);
             const editorInstance = editorRef.current.getInstance();
             const contentMarkdown = editorInstance.getMarkdown();
             const contentHTML = editorInstance.getHTML(); 
@@ -33,31 +58,32 @@ const ContentEditor: React.FC = () => {
             try {
                 setIsSaving(true);
 
-                await saveToFirestore("posts", {
+                const postData = {
                     postTitle,
                     content: contentMarkdown, 
                     coverImageUrl,
                     contentHTML,
                     contentFormat: "markdown_html",
                     authorId: currentUser.uid,
-                    createdAt: new Date(),
                     updatedAt: new Date(),
                     status,
                     tags,
                     isFeatured: role === "admin" ? isFeatured : false, 
-                });
+                };
+
+                if (isEditing) {
+                    const postRef = doc(db, "posts", id?.toString());
+                    await updateDoc(postRef, postData);
+                } else {
+                    await saveToFirestore("posts", postData);
+                }
 
                 await updateGlobalTagsCollection(tags);
 
-                if (status === "published") {
-                    router.push('/home');
-                } else if (status === "draft") {
-                    router.push(`/home/${currentUser.uid}/user/content?tab=drafts`);
-                }
+                router.push('/home'); 
 
-                console.log("Post and tags saved successfully");
             } catch (error) {
-                console.error("Failed to save post and tags:", error);
+                console.error("Failed to save post:", error);
             } finally {
                 setIsSaving(false);
             }

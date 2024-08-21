@@ -5,6 +5,7 @@ import { collection, query, where, orderBy, getDocs } from 'firebase/firestore';
 import { db } from '@/app/lib/firebase/config';
 
 type Post = {
+    likedBy: any;
     id: string;
     title: string;
     content: string;

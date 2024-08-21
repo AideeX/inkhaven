@@ -52,7 +52,7 @@ function CommentList({ postId }: { postId: string }) {
 
 
   return (
-    <div className="shadow bg-light-secondaryBg dark:bg-dark-secondaryBg p-4 mt-8 sm:p-6 md:p-8 w-full sm:w-11/12 md:w-2/3 lg:w-3/4 mx-auto rounded-xl">
+    <div className="bg-light-secondaryBg dark:bg-dark-secondaryBg p-4 mt-8 sm:p-6 md:p-8 w-full sm:w-11/12 md:w-2/3 lg:w-3/4 mx-auto rounded-xl shadow-md">
       {user ? (
         <CommentForm postId={postId} onCommentAdded={() => {
           setComments([]); 

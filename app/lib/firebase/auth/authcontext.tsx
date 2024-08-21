@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState, createContext, useContext } from 'react';
-import { onAuthStateChanged, User } from 'firebase/auth';
+import { onAuthStateChanged, User, updateProfile } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
 import { auth, db } from '@/app/lib/firebase/config';
 
@@ -9,6 +9,7 @@ type AuthContextType = {
     user: User | null;
     role: string | null;
     loading: boolean;
+    setUser: (user: User | null) => void; 
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -22,13 +23,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
             if (currentUser) {
                 setUser(currentUser);
-                
 
-                const userDoc = await getDoc(doc(db, "users", currentUser.uid));
+                const userDoc = await getDoc(doc(db, 'users', currentUser.uid));
                 if (userDoc.exists()) {
-                    setRole(userDoc.data().role || "user");
+                    setRole(userDoc.data().role || 'user');
                 } else {
-                    setRole("user"); 
+                    setRole('user');
                 }
             } else {
                 setUser(null);
@@ -41,7 +41,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }, []);
 
     return (
-        <AuthContext.Provider value={{ user, role, loading }}>
+        <AuthContext.Provider value={{ user, role, loading, setUser }}>
             {children}
         </AuthContext.Provider>
     );

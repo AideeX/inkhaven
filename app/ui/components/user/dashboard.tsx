@@ -10,6 +10,7 @@ const Dashboard: React.FC = () => {
     const [likes, setLikes] = useState(0);
     const [comments, setComments] = useState(0);
     const [bookmarks, setBookmarks] = useState(0);
+    const [shares, setShares] = useState(0);
 
     useEffect(() => {
         if (analytics.length > 0) {
@@ -17,15 +18,20 @@ const Dashboard: React.FC = () => {
             setLikes(analytics.reduce((sum, data) => sum + data.likes, 0));
             setComments(analytics.reduce((sum, data) => sum + data.comments, 0));
             setBookmarks(analytics.reduce((sum, data) => sum + data.bookmarks, 0));
+            setShares(analytics.reduce((sum, data) => sum + data.shares, 0));
         }
     }, [analytics]);
 
     if (loading) {
-        return <DashboardSkeleton/>;
+        return <DashboardSkeleton />;
     }
 
     if (error) {
         return <div className="text-light-text dark:text-dark-text">Error loading analytics: {error.message}</div>;
+    }
+
+    if (analytics.length === 0) {
+        return <div className="text-light-text dark:text-dark-text">No analytics data available.</div>;
     }
 
     return (
@@ -47,12 +53,17 @@ const Dashboard: React.FC = () => {
                     <h3 className="text-lg font-medium text-light-heading dark:text-dark-heading">Total Bookmarks</h3>
                     <p className="text-2xl font-bold">{bookmarks}</p>
                 </div>
+                <div className="p-4 bg-light-secondaryBg dark:bg-dark-secondaryBg rounded-lg shadow-lg text-center">
+                    <h3 className="text-lg font-medium text-light-heading dark:text-dark-heading">Total Shares</h3>
+                    <p className="text-2xl font-bold">{shares}</p>
+                </div>
             </div>
 
             <div className="p-6 bg-light-secondaryBg dark:bg-dark-secondaryBg rounded-lg shadow-lg">
                 <h3 className="text-xl font-medium text-light-heading dark:text-dark-heading mb-4">Post Analytics</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                     {analytics.map((data) => (
+                        console.log(data),
                         <div key={data.postId} className="flex flex-col items-center">
                             <div className="relative w-full h-48 bg-light-accentLight dark:bg-dark-accentLight rounded-lg mb-2">
                                 <div className="absolute bottom-0 left-0 w-full h-full flex flex-col justify-end">
@@ -60,9 +71,10 @@ const Dashboard: React.FC = () => {
                                     <div className="w-full bg-gray-500" style={{ height: `${data.likes}px` }}></div>
                                     <div className="w-full bg-yellow-500" style={{ height: `${data.comments}px` }}></div>
                                     <div className="w-full bg-green-500" style={{ height: `${data.bookmarks}px` }}></div>
+                                    <div className="w-full bg-red-500" style={{ height: `${data.shares}px` }}></div>
                                 </div>
                             </div>
-                            <p className="text-sm text-light-secondaryText dark:text-dark-secondaryText">Post {data.postId}</p>
+                            <p className="text-sm text-light-secondaryText dark:text-dark-secondaryText">{data.postTitle}</p>
                         </div>
                     ))}
                 </div>

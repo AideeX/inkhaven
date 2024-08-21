@@ -9,7 +9,7 @@ const Bookmarks: React.FC = () => {
     const { data: bookmarks = [], isValidating: loading, error } = useBookmarks(user?.uid || '');
 
     if (!user) return <p>Please sign in to view your bookmarks.</p>;
-    if (loading) return <p>Loading your bookmarks...</p>;
+  
     if (error) return <p>Error loading bookmarks: {error.message}</p>;
     if (bookmarks.length === 0) return <p>No bookmarks found.</p>;
 

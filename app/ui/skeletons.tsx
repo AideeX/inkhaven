@@ -427,3 +427,33 @@ export function CommentListSkeleton() {
         </div>
     );
 }
+
+
+
+export function UserPostCardSkeleton() {
+    return (
+        <div className="p-4 bg-light-secondaryBg dark:bg-dark-secondaryBg border border-light-accentLight dark:border-dark-accentLight rounded-lg shadow-md transition-shadow h-auto w-full flex items-center relative mb-4 sm:w-full sm:h-auto animate-pulse">
+   
+            <div className="w-24 h-24 flex-shrink-0 flex items-center justify-center">
+                <div className="w-full h-full bg-gray-300/75 dark:bg-dark-secondaryBg rounded-lg"></div>
+            </div>
+            <div className="flex flex-col justify-center flex-grow ml-4 min-w-0">
+                <div>
+                    <div className="h-4 bg-gray-300/75 dark:bg-dark-secondaryBg rounded w-3/4 mb-2"></div>
+                    <div className="h-4 bg-gray-300/75 dark:bg-dark-secondaryBg rounded w-full mb-2"></div>
+                    <div className="h-4 bg-gray-300/75 dark:bg-dark-secondaryBg rounded w-5/6"></div>
+                </div>
+                <div className="flex flex-wrap gap-1 md:gap-2 mt-2">
+                    {Array.from({ length: 2 }).map((_, index) => (
+                        <div key={index} className="h-4 bg-gray-300/75 dark:bg-dark-secondaryBg rounded w-12"></div>
+                    ))}
+                </div>
+                <div className="flex justify-end mt-auto space-x-2">
+                    <div className="h-4 bg-gray-300/75 dark:bg-dark-secondaryBg rounded w-16"></div>
+                    <div className="h-4 bg-gray-300/75 dark:bg-dark-secondaryBg rounded w-16"></div>
+                </div>
+            </div>
+        </div>
+    );
+}
+

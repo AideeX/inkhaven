@@ -32,11 +32,14 @@ export const useNotifications = () => {
         );
 
         const unsubscribe = onSnapshot(notificationsQuery, (snapshot) => {
-            const fetchedNotifications: Notification[] = snapshot.docs.map((doc) => ({
-                id: doc.id,
-                ...doc.data(),
-                createdAt: doc.data().createdAt.toDate(),
-            } as Notification));
+            const fetchedNotifications: Notification[] = snapshot.docs.map((doc) => {
+                const data = doc.data();
+                return {
+                    id: doc.id,
+                    ...data,
+                    createdAt: data.createdAt.toDate(), 
+                } as Notification;
+            });
 
             setNotifications(fetchedNotifications);
             setLoading(false);
@@ -45,7 +48,10 @@ export const useNotifications = () => {
             setLoading(false);
         });
 
-        return () => unsubscribe();
+        return () => {
+            unsubscribe();
+            setLoading(false); 
+        };
     }, [user]);
 
     return { notifications, loading, error };

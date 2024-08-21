@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useFeaturedPosts } from '@/app/lib/hooks/featured';
 import { FeaturedPostsSkeleton } from '../../skeletons';
 import { literata } from '../../styles/fonts';
+import Image from 'next/image';
 
 const generateExcerpt = (content: string | undefined, length: number = 100) => {
     if (typeof content !== 'string') {
@@ -28,9 +29,11 @@ const FeaturedPosts: React.FC = () => {
                         <Link key={post.id} href={`/home/${post.id}/post`}>
                             <div className="flex flex-col md:flex-row items-center md:items-start p-2 rounded-lg cursor-pointer transition-colors hover:bg-light-accentLight dark:hover:bg-dark-accentLight">
                                 {post.coverImageUrl && (
-                                    <img 
+                                    <Image 
                                         src={post.coverImageUrl} 
                                         alt={post.postTitle} 
+                                        width={64}
+                                        height={64}
                                         className="w-full h-40 md:w-16 md:h-16 object-cover rounded-lg mb-2 md:mb-0" 
                                     />
                                 )}

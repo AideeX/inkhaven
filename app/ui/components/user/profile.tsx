@@ -3,113 +3,147 @@
 import { useAuth } from '@/app/lib/firebase/auth/authcontext';
 import { usePosts } from '@/app/lib/hooks/posts';
 import { useUserProfile } from '@/app/lib/hooks/userprofile';
-import { useComments } from '@/app/lib/hooks/comments'; 
+import { useComments } from '@/app/lib/hooks/comments';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import md5 from 'md5';
-import { updateProfileData } from '@/app/lib/hooks/updateprofile';
+import { useRouter, usePathname } from 'next/navigation';
 import { Box } from '@chakra-ui/react';
-import { ProfileSkeleton } from '@/app/ui/skeletons';
+import { UserRoundPlus, UserRoundCheck } from 'lucide-react';
+import { doc, updateDoc, increment, getDoc } from 'firebase/firestore';
+import { db } from '@/app/lib/firebase/config';
 
 const Profile: React.FC = () => {
     const { user } = useAuth();
-    const { posts, loading: postsLoading, error: postsError } = usePosts(user?.uid);
-    const { profile, loading: profileLoading, error: profileError } = useUserProfile(user?.uid || '');
-    const { comments,  error: commentsError } = useComments(user?.uid || ''); 
-    const [isVisitor, setIsVisitor] = useState(false);
+    const router = useRouter();
+    const pathname = usePathname();
+    const userIdFromPath = pathname.split('/')[2];
+    const { profile, loading: profileLoading } = useUserProfile(userIdFromPath || '');
+    const { posts, loading: postsLoading } = usePosts(userIdFromPath || '');
+    const { comments } = useComments(userIdFromPath || '');
+
+    const [isFollowing, setIsFollowing] = useState(false);
     const [gravatarUrl, setGravatarUrl] = useState<string | null>(null);
-    const [useGravatar, setUseGravatar] = useState(true);
-    const [profileData, setProfileData] = useState({
-        displayName: '',
-        bio: '',
-        photoURL: '',
-    });
 
     useEffect(() => {
-        if (profile) {
-            setProfileData({
-                displayName: profile.displayName,
-                bio: profile.bio,
-                photoURL: profile.photoURL || '',
-            });
+        if (profile?.email) {
+            const hash = md5(profile.email.trim().toLowerCase());
+            setGravatarUrl(`https://www.gravatar.com/avatar/${hash}?d=identicon`);
         }
-    }, [profile]);
+    }, [profile?.email]);
 
     useEffect(() => {
-        if (user?.email && useGravatar && !profileData.photoURL) {
-            const hash = md5(user.email.trim().toLowerCase());
-            const url = `https://www.gravatar.com/avatar/${hash}?d=identicon`;
-            setGravatarUrl(url);
+        if (user && profile) {
+            const checkIfFollowing = async () => {
+                const currentUserDoc = await getDoc(doc(db, 'users', user.uid));
+                if (currentUserDoc.exists()) {
+                    const data = currentUserDoc.data();
+                    if (Array.isArray(data.follows)) {
+                        setIsFollowing(data.follows.includes(profile.uid));
+                    } else {
+                        setIsFollowing(false);
+                    }
+                }
+            };
+            checkIfFollowing();
         }
-    }, [user?.email, useGravatar, profileData.photoURL]);
+    }, [user, profile]);
 
-    const handleProfileUpdate = async (e: React.FormEvent) => {
-        e.preventDefault();
+    const handleFollow = async () => {
+        if (!user || !profile) return;
+
+        const userDocRef = doc(db, 'users', profile.uid);
+        const currentUserDocRef = doc(db, 'users', user.uid);
+
         try {
-            await updateProfileData(user?.uid || '', {
-                displayName: profileData.displayName,
-                bio: profileData.bio,
-                photoURL: useGravatar ? gravatarUrl || '' : profileData.photoURL,
-            });
-            alert('Profile updated successfully');
+            if (isFollowing) {
+                await updateDoc(userDocRef, {
+                    followers: increment(-1),
+                });
+                await updateDoc(currentUserDocRef, {
+                    follows: increment(-1),
+                });
+            } else {
+                await updateDoc(userDocRef, {
+                    followers: increment(1),
+                });
+                await updateDoc(currentUserDocRef, {
+                    follows: increment(1),
+                });
+            }
+            setIsFollowing(!isFollowing);
         } catch (error) {
-            console.error('Error updating profile:', error);
-            alert('Failed to update profile');
+            console.error('Error updating follow status:', error);
         }
     };
 
-    if (profileLoading || postsLoading ) {
-        return <ProfileSkeleton />;
-    }
+    const handleEditProfile = () => {
+        router.push(`/home/${user?.uid}/user/profile/update`);
+    };
+
+    const displayName = (profile?.displayChoice?.useDisplayName && profile?.displayName) || '';
+    const username = (profile?.displayChoice?.useUsername && profile?.username) || '';
+    const fullName = [displayName, username].filter(Boolean).join(' ');
+
+    const isVisitor = user?.uid !== profile?.uid;
 
     return (
-        <Box className="container mx-auto mt-8 p-4 bg-light-secondaryBg dark:bg-dark-secondaryBg rounded-xl shadow-3xl">
-            <div className="flex items-center space-x-4">
+        <Box
+            className={`container mx-auto p-4 bg-light-secondaryBg dark:bg-dark-secondaryBg rounded-xl ${
+                isVisitor ? 'mt-24' : 'mt-8'
+            }`}
+        >
+            <div className="flex flex-col md:flex-row items-center md:space-x-4">
                 <Image
-                    src={useGravatar ? gravatarUrl || '/default-profile.png' : profileData.photoURL || '/default-profile.png'}
+                    src={profile?.photoURL || gravatarUrl || '/default-profile.png'}
                     alt="Profile Picture"
-                    width={80}
-                    height={80}
+                    width={100}
+                    height={100}
                     className="rounded-full"
                 />
-                <div>
+                <div className="mt-4 md:mt-0">
                     <h1 className="text-2xl font-bold text-light-heading dark:text-dark-heading">
-                        {profileData.displayName}
+                        {fullName || 'User'}
                     </h1>
                     <p className="text-light-text dark:text-dark-text">{profile?.bio || 'No bio available'}</p>
                     {profile?.createdAt && (
                         <p className="text-sm text-light-secondaryText dark:text-dark-secondaryText">
-                            Member since: {profile.createdAt.toDateString()}
+                            Member since: {new Date(profile.createdAt).toDateString()}
                         </p>
                     )}
                 </div>
+                {isVisitor && (
+                    <button onClick={handleFollow} className="ml-auto mt-4 md:mt-0">
+                        {isFollowing ? (
+                            <UserRoundCheck className="text-green-500" size={24} />
+                        ) : (
+                            <UserRoundPlus className="text-blue-500" size={24} />
+                        )}
+                    </button>
+                )}
             </div>
 
-            {!isVisitor && (
-                <div className="mt-4 flex space-x-6">
-                    <div>
-                        <p className="text-xl font-semibold text-light-heading dark:text-dark-heading">{profile?.follows || 0}</p>
-                        <p className="text-light-secondaryText dark:text-dark-secondaryText">Follows</p>
-                    </div>
-                    <div>
-                        <p className="text-xl font-semibold text-light-heading dark:text-dark-heading">{profile?.followers || 0}</p>
-                        <p className="text-light-secondaryText dark:text-dark-secondaryText">Followers</p>
-                    </div>
-                    <div>
-                        <p className="text-xl font-semibold text-light-heading dark:text-dark-heading">{posts.length}</p>
-                        <p className="text-light-secondaryText dark:text-dark-secondaryText">Published Posts</p>
-                    </div>
+            <div className="mt-6 flex space-x-6 justify-center md:justify-start">
+                <div>
+                    <p className="text-xl font-semibold text-light-heading dark:text-dark-heading">
+                        {profile?.follows || 0}
+                    </p>
+                    <p className="text-light-secondaryText dark:text-dark-secondaryText">Follows</p>
                 </div>
-            )}
-
-            {isVisitor && (
-                <div className="mt-4">
-                    <button className="px-4 py-2 bg-light-buttonDefault dark:bg-dark-buttonDefault text-white rounded hover:bg-light-buttonHover dark:hover:bg-dark-buttonHover">
-                        Follow
-                    </button>
+                <div>
+                    <p className="text-xl font-semibold text-light-heading dark:text-dark-heading">
+                        {profile?.followers || 0}
+                    </p>
+                    <p className="text-light-secondaryText dark:text-dark-secondaryText">Followers</p>
                 </div>
-            )}
+                <div>
+                    <p className="text-xl font-semibold text-light-heading dark:text-dark-heading">
+                        {posts.length}
+                    </p>
+                    <p className="text-light-secondaryText dark:text-dark-secondaryText">Published Posts</p>
+                </div>
+            </div>
 
             <div className="mt-8">
                 <h2 className="text-xl font-semibold text-light-heading dark:text-dark-heading">Published Posts</h2>
@@ -146,53 +180,14 @@ const Profile: React.FC = () => {
             </div>
 
             {!isVisitor && (
-                <form onSubmit={handleProfileUpdate} className="mt-8 space-y-4">
-                    <div>
-                        <label className="block text-sm font-medium text-light-text dark:text-dark-text">Display Name</label>
-                        <input
-                            type="text"
-                            value={profileData.displayName}
-                            onChange={(e) => setProfileData({ ...profileData, displayName: e.target.value })}
-                            className="mt-1 p-2 border border-light-accentLight dark:border-dark-accentLight rounded-md w-full"
-                            required
-                        />
-                    </div>
-                    <div>
-                        <label className="block text-sm font-medium text-light-text dark:text-dark-text">Bio</label>
-                        <textarea
-                            value={profileData.bio}
-                            onChange={(e) => setProfileData({ ...profileData, bio: e.target.value })}
-                            className="mt-1 p-2 border border-light-accentLight dark:border-dark-accentLight rounded-md w-full"
-                        />
-                    </div>
-                    <div>
-                        <label className="block text-sm font-medium text-light-text dark:text-dark-text">Profile Picture</label>
-                        <input
-                            type="url"
-                            value={profileData.photoURL}
-                            onChange={(e) => setProfileData({ ...profileData, photoURL: e.target.value || '' })}
-                            className="mt-1 p-2 border border-light-accentLight dark:border-dark-accentLight rounded-md w-full"
-                            disabled={useGravatar}
-                        />
-                        <div className="mt-2">
-                            <label className="inline-flex items-center">
-                                <input
-                                    type="checkbox"
-                                    checked={useGravatar}
-                                    onChange={(e) => setUseGravatar(e.target.checked)}
-                                    className="form-checkbox"
-                                />
-                                <span className="ml-2 text-light-text dark:text-dark-text">Use Gravatar</span>
-                            </label>
-                        </div>
-                    </div>
+                <div className="mt-8 flex justify-center md:justify-start">
                     <button
-                        type="submit"
+                        onClick={handleEditProfile}
                         className="px-4 py-2 bg-light-buttonDefault dark:bg-dark-buttonDefault text-white rounded hover:bg-light-buttonHover dark:hover:bg-dark-buttonHover"
                     >
-                        Update Profile
+                        Edit Profile
                     </button>
-                </form>
+                </div>
             )}
         </Box>
     );

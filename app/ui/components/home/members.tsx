@@ -5,6 +5,7 @@ import { useUsers } from '@/app/lib/hooks/fetchusers';
 import Image from 'next/image';
 import md5 from 'md5';
 import { CommunityMembersSkeleton } from '../../skeletons';
+import { useAuth } from '@/app/lib/firebase/auth/authcontext'; 
 
 const getGravatarUrl = (email: string) => {
     const hash = md5(email.trim().toLowerCase());
@@ -13,8 +14,9 @@ const getGravatarUrl = (email: string) => {
 
 const CommunityMembers: React.FC = () => {
     const { users, loading, error } = useUsers();
+    const { user: currentUser } = useAuth(); 
 
-    if (loading) return <CommunityMembersSkeleton/>
+    if (loading) return <CommunityMembersSkeleton />;
     if (error) return <p>Error loading community members: {error.message}</p>;
 
     const displayedUsers = users.slice(0, 6);
@@ -29,7 +31,11 @@ const CommunityMembers: React.FC = () => {
             </div>
             <div className="grid grid-cols-2 gap-4">
                 {displayedUsers.map(user => {
-                    const profilePicture = user.photoURL || getGravatarUrl((user as any).email) || '/default-profile.png';
+                    const profilePicture = user.photoURL || getGravatarUrl(user.email) || '/default-profile.png';
+
+                    
+                    console.log(`Current User ID: ${currentUser?.uid}, Target User ID: ${user.id}`);
+                    console.log(`Redirecting to: /home/${user.id}/user/profile`);
 
                     return (
                         <Link key={user.id} href={`/home/${user.id}/user/profile`}>

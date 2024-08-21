@@ -32,6 +32,7 @@ const fetchDrafts = async (authorId: string): Promise<Post[]> => {
 };
 
 export const useDrafts = (authorId: string) => {
-    const { data: drafts = [], error } = useSWR(['drafts', authorId], () => fetchDrafts(authorId));
-    return { drafts, loading: !error && !drafts.length, error };
+    const { data: drafts, error } = useSWR(['drafts', authorId], () => fetchDrafts(authorId));
+    const loading = !drafts && !error;
+    return { drafts, loading, error };
 };

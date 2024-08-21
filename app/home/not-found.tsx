@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { playfairDisplay } from './ui/styles/fonts';
+import { playfairDisplay } from '@/app/ui/styles/fonts';
 
 export default function Custom404() {
     const router = useRouter();

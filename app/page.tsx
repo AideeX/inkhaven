@@ -8,17 +8,16 @@ export default function Home() {
     <div className="bg-light-primary h-full">
       <Header />
       <main className="flex flex-col h-screen px-2">
-        <HeroWrapper />
+        <HeroWrapper data-testid="hero-wrapper" />
         <section className="mt-8">
-        <AboutWrapper />
+          <AboutWrapper data-testid="about-wrapper" />
         </section>
         <section className="mt-8">
-          <FeaturesWrapper />
+          <FeaturesWrapper data-testid="features-wrapper" />
         </section>
         <Footer />
       </main>
       <BackToTopButton />
     </div>
-  
   );
 }

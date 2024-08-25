@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { montserrat } from "@/app/ui/styles/fonts";
 import '@/app/ui/styles/globals.css';
 import { AuthProvider } from "./lib/firebase/auth/authcontext";
+import { Providers } from "@/app/providers/providers";
 
 
 
@@ -18,7 +19,9 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${montserrat.className} antialiased bg-light-primary `}>
         <AuthProvider>
+          <Providers>
           {children}
+          </Providers>
         </AuthProvider>
       </body>
     </html>
